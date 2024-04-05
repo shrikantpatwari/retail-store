@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const authService = require('../services/auth.service');
 const userService = require('../services/user.service');
-const tokenService =require('../services/token.service');
+const tokenService = require('../services/token.service');
 const emailService = require('../services/email.service');
 
 const register = catchAsync(async (req, res) => {

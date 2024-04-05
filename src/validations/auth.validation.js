@@ -49,7 +49,6 @@ const verifyEmail = {
   }),
 };
 
-
 module.exports = {
   register,
   login,
@@ -57,5 +56,5 @@ module.exports = {
   refreshTokens,
   forgotPassword,
   resetPassword,
-  verifyEmail
+  verifyEmail,
 };
