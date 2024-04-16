@@ -29,6 +29,9 @@ const productSchema = mongoose.Schema(
       required: true,
       min: 0,
     },
+    imageURL: {
+      type: String,
+    },
   },
   {
     timestamps: true,
