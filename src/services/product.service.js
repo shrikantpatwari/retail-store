@@ -1,4 +1,5 @@
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const Product = require('../models/product.model');
 const generateUUID = require('../utils/helper');
 
@@ -11,7 +12,17 @@ const s3Client = new S3Client({
 });
 
 const getproductById = async (id) => {
-  return Product.findById(id);
+  const product = await Product.findById(id);
+  const params = {
+    Bucket: process.env.AWS_S3_BUCKET,
+    Key: product.imageURL,
+  };
+  // Generate pre-signed URL
+  const command = new GetObjectCommand(params);
+  const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+  product.imageURL = url;
+
+  return product;
 };
 
 const getProductsByCategory = async (category, limit, page) => {
